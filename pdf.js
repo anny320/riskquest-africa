@@ -264,8 +264,8 @@ function generatePDFReport(lead, results, badges, radarChartCanvasId) {
   addSectionHeading(doc, 'Consultation Options', margin, 70);
 
   const offers = [
-    ['Starter Security Review — KES 15,000', '60-minute consultation, report review, priority actions'],
-    ['SME Security Roadmap — KES 50,000', 'Assessment review, security roadmap, templates, follow-up support'],
+    ['Starter Security Review — KES 20,000', '60-minute consultation, report review, priority actions'],
+    ['SME Security Roadmap — KES 60,000', 'Assessment review, security roadmap, templates, follow-up support'],
     ['Digital Resilience Programme — Custom Pricing', 'Cybersecurity, AI Governance, Data Protection, Staff Training, Governance Frameworks']
   ];
 
