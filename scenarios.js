@@ -1,5 +1,5 @@
 async function loadScenarioData() {
-  const res = await fetch('data/scenarios.json');
+  const res = await fetch('scenarios.json');
   if (!res.ok) throw new Error('Failed to load scenario data');
   return res.json();
 }
