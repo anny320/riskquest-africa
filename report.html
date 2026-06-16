@@ -7,7 +7,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body class="min-h-screen">
 
@@ -124,6 +124,7 @@
       </div>
       <div class="flex flex-wrap justify-center gap-4 mt-8">
         <a id="whatsapp-link" href="#" target="_blank" class="btn-whatsapp">Talk to an Expert</a>
+        <a id="email-link" href="#" class="btn-secondary">Email Us</a>
         <a href="https://calendly.com/wakara-technologies" target="_blank" class="btn-primary">Book Consultation</a>
         <a href="https://calendly.com/wakara-technologies" target="_blank" class="btn-secondary">Schedule Discovery Call</a>
       </div>
@@ -131,11 +132,11 @@
   </section>
 </main>
 
-<script src="./scoring.js"></script>
-<script src="./app.js"></script>
-<script src="./charts.js"></script>
-<script src="./leadcapture.js"></script>
-<script src="./pdf.js"></script>
+<script src="assets/js/scoring.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/leadcapture.js"></script>
+<script src="assets/js/pdf.js"></script>
 <script>
 const session = App.loadSession();
 
@@ -162,6 +163,11 @@ if (!session) {
 
   document.getElementById('whatsapp-link').href = App.whatsappLink(
     'Hello Wakara Technologies. I completed the Secure360 assessment and would like a consultation.'
+  );
+
+  document.getElementById('email-link').href = App.mailtoLink(
+    'Secure360 Consultation Enquiry',
+    `Hello Wakara Technologies, I completed the Secure360 assessment with an overall score of ${results.overall}/100 (${results.riskLevel.label}) and would like a consultation.`
   );
 
   document.getElementById('lead-form').addEventListener('submit', (e) => {
