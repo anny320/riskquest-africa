@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Secure360 Results — Wakara Technologies</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="min-h-screen">
+
+<nav class="px-6 py-5 max-w-7xl mx-auto flex items-center justify-between">
+  <a href="index.html" class="flex items-center gap-2">
+    <span class="text-2xl">🛡️</span>
+    <span class="font-bold text-lg">Wakara <span class="gradient-text">Secure360</span></span>
+  </a>
+  <a href="assessment.html" class="text-sm text-blue-600 font-semibold">Retake Assessment</a>
+</nav>
+
+<main class="max-w-5xl mx-auto px-6 pb-20">
+
+  <section id="no-session" class="hidden text-center py-20">
+    <p class="text-slate-500 mb-6">No assessment results found.</p>
+    <a href="assessment.html" class="btn-primary">Start Assessment</a>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="text-center mb-10">
+      <p class="text-slate-500 mb-2">Your Secure360 Results</p>
+      <h1 id="overall-score" class="text-6xl font-extrabold mb-2">0</h1>
+      <p id="risk-label" class="inline-block px-4 py-1 rounded-full text-white font-semibold"></p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-10">
+      <div class="card p-6">
+        <h3 class="font-semibold mb-4 text-center">Risk Profile Radar</h3>
+        <canvas id="radarChart"></canvas>
+      </div>
+      <div class="card p-6">
+        <h3 class="font-semibold mb-4 text-center">Category Breakdown</h3>
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card p-6 mb-10">
+      <h3 class="font-semibold mb-4">Badges Earned</h3>
+      <div id="badges-container" class="flex flex-wrap gap-3"></div>
+      <p id="no-badges" class="hidden text-sm text-slate-500">Complete more scenarios well to earn badges next time!</p>
+    </div>
+
+    <div class="card p-8 mb-10">
+      <h3 class="text-xl font-bold mb-4">Get Your Full PDF Report</h3>
+      <p class="text-slate-500 mb-6">Enter your details below to unlock your personalized PDF report with a full action plan.</p>
+      <form id="lead-form" class="grid md:grid-cols-2 gap-4">
+        <div>
+          <label class="text-sm font-medium block mb-1">Full Name *</label>
+          <input type="text" id="lead-name" class="w-full border rounded-lg px-3 py-2" />
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-name"></p>
+        </div>
+        <div>
+          <label class="text-sm font-medium block mb-1">Company Name *</label>
+          <input type="text" id="lead-company" class="w-full border rounded-lg px-3 py-2" />
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-company"></p>
+        </div>
+        <div>
+          <label class="text-sm font-medium block mb-1">Email Address *</label>
+          <input type="email" id="lead-email" class="w-full border rounded-lg px-3 py-2" />
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-email"></p>
+        </div>
+        <div>
+          <label class="text-sm font-medium block mb-1">Phone Number *</label>
+          <input type="tel" id="lead-phone" class="w-full border rounded-lg px-3 py-2" />
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-phone"></p>
+        </div>
+        <div>
+          <label class="text-sm font-medium block mb-1">Website</label>
+          <input type="text" id="lead-website" class="w-full border rounded-lg px-3 py-2" />
+        </div>
+        <div>
+          <label class="text-sm font-medium block mb-1"># of Employees</label>
+          <input type="text" id="lead-employees" class="w-full border rounded-lg px-3 py-2" />
+        </div>
+        <div class="md:col-span-2">
+          <button type="submit" class="btn-primary w-full">Download My PDF Report</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card p-8 mb-10">
+      <h3 class="text-xl font-bold mb-6 text-center">Talk to an Expert</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="border rounded-xl p-5">
+          <h4 class="font-semibold mb-2">Starter Security Review</h4>
+          <p class="text-2xl font-bold mb-3">KES 15,000</p>
+          <ul class="text-sm text-slate-500 space-y-1 mb-4">
+            <li>60-minute consultation</li>
+            <li>Report review</li>
+            <li>Priority actions</li>
+          </ul>
+        </div>
+        <div class="border-2 border-blue-600 rounded-xl p-5">
+          <h4 class="font-semibold mb-2">SME Security Roadmap</h4>
+          <p class="text-2xl font-bold mb-3">KES 50,000</p>
+          <ul class="text-sm text-slate-500 space-y-1 mb-4">
+            <li>Assessment review</li>
+            <li>Security roadmap</li>
+            <li>Templates</li>
+            <li>Follow-up support</li>
+          </ul>
+        </div>
+        <div class="border rounded-xl p-5">
+          <h4 class="font-semibold mb-2">Digital Resilience Programme</h4>
+          <p class="text-2xl font-bold mb-3">Custom Pricing</p>
+          <ul class="text-sm text-slate-500 space-y-1 mb-4">
+            <li>Cybersecurity</li>
+            <li>AI Governance</li>
+            <li>Data Protection</li>
+            <li>Staff Training</li>
+            <li>Governance Frameworks</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a id="whatsapp-link" href="#" target="_blank" class="btn-whatsapp">Talk to an Expert</a>
+        <a href="https://calendly.com/wakara-technologies" target="_blank" class="btn-primary">Book Consultation</a>
+        <a href="https://calendly.com/wakara-technologies" target="_blank" class="btn-secondary">Schedule Discovery Call</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="./scoring.js"></script>
+<script src="./app.js"></script>
+<script src="./charts.js"></script>
+<script src="./leadcapture.js"></script>
+<script src="./pdf.js"></script>
+<script>
+const session = App.loadSession();
+
+if (!session) {
+  document.getElementById('no-session').classList.remove('hidden');
+} else {
+  document.getElementById('dashboard').classList.remove('hidden');
+  const { results, badges } = session;
+
+  document.getElementById('overall-score').textContent = results.overall;
+  const riskLabel = document.getElementById('risk-label');
+  riskLabel.textContent = results.riskLevel.label;
+  riskLabel.style.backgroundColor = results.riskLevel.color;
+
+  Charts.renderRadarChart('radarChart', results);
+  Charts.renderCategoryChart('categoryChart', results);
+
+  const badgesContainer = document.getElementById('badges-container');
+  if (badges.length) {
+    badgesContainer.innerHTML = badges.map(b => `<span class="badge-pill">${b.icon} ${b.label}</span>`).join('');
+  } else {
+    document.getElementById('no-badges').classList.remove('hidden');
+  }
+
+  document.getElementById('whatsapp-link').href = App.whatsappLink(
+    'Hello Wakara Technologies. I completed the Secure360 assessment and would like a consultation.'
+  );
+
+  document.getElementById('lead-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const lead = {
+      name: document.getElementById('lead-name').value,
+      company: document.getElementById('lead-company').value,
+      email: document.getElementById('lead-email').value,
+      phone: document.getElementById('lead-phone').value,
+      website: document.getElementById('lead-website').value,
+      employees: document.getElementById('lead-employees').value
+    };
+
+    const errors = LeadCapture.validateLead(lead);
+    ['name', 'company', 'email', 'phone'].forEach((field) => {
+      const errEl = document.getElementById(`err-${field}`);
+      if (errors[field]) {
+        errEl.textContent = errors[field];
+        errEl.classList.remove('hidden');
+      } else {
+        errEl.classList.add('hidden');
+      }
+    });
+
+    if (Object.keys(errors).length) return;
+
+    LeadCapture.saveLead(lead);
+    PDFReport.generatePDFReport(lead, results, badges, 'radarChart');
+  });
+}
+</script>
+</body>
+</html>

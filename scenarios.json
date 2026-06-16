@@ -1,0 +1,92 @@
+{
+  "personas": [
+    { "id": "retail", "label": "Retail", "icon": "🛍️" },
+    { "id": "professional-services", "label": "Professional Services", "icon": "💼" },
+    { "id": "law-firm", "label": "Law Firm", "icon": "⚖️" },
+    { "id": "manufacturing", "label": "Manufacturing", "icon": "🏭" },
+    { "id": "healthcare", "label": "Healthcare", "icon": "🏥" },
+    { "id": "ngo", "label": "NGO", "icon": "🤝" },
+    { "id": "startup", "label": "Startup", "icon": "🚀" },
+    { "id": "education", "label": "Education", "icon": "🎓" },
+    { "id": "financial-services", "label": "Financial Services", "icon": "🏦" }
+  ],
+  "scenarios": [
+    {
+      "id": "scenario-1",
+      "title": "Suspicious Payment Request",
+      "icon": "💸",
+      "narrative": "It's 4:45pm on a Friday. Your finance officer receives an urgent email — apparently from a senior director — asking for an immediate wire transfer to a 'new supplier' before the bank closes. The tone is urgent and the sender insists this can't wait until Monday.",
+      "categories": ["security-awareness", "fraud-prevention", "process-controls"],
+      "options": [
+        { "id": "a", "label": "Approve immediately to avoid delays", "score": 0, "feedback": "Acting under pressure without verification is exactly how business email compromise scams succeed." },
+        { "id": "b", "label": "Verify the supplier and request through a known channel", "score": 100, "feedback": "Excellent. Verifying out-of-band is the single best defence against payment fraud." },
+        { "id": "c", "label": "Escalate internally before acting", "score": 75, "feedback": "Good instinct — escalation slows down fraud, though direct verification is even stronger." },
+        { "id": "d", "label": "Ignore the email entirely", "score": 40, "feedback": "Ignoring it avoids the immediate risk, but doesn't address the underlying process gap." }
+      ]
+    },
+    {
+      "id": "scenario-2",
+      "title": "Lost Laptop",
+      "icon": "💻",
+      "narrative": "A sales employee leaves a company laptop in a taxi after a client meeting. It contained customer contracts, pricing data, and saved email credentials.",
+      "categories": ["endpoint-security", "data-protection"],
+      "options": [
+        { "id": "a", "label": "Device was encrypted", "score": 85, "feedback": "Encryption ensures data on the device can't be read even if it's lost — a strong baseline control." },
+        { "id": "b", "label": "Remote wipe was enabled", "score": 100, "feedback": "The best outcome — you can remotely erase company data the moment it's reported missing." },
+        { "id": "c", "label": "No controls were in place", "score": 0, "feedback": "Without encryption or remote wipe, all data on that laptop is now exposed." },
+        { "id": "d", "label": "It was a personal device with no MDM", "score": 15, "feedback": "Unmanaged personal devices accessing company data is a significant, common SME risk (BYOD risk)." }
+      ]
+    },
+    {
+      "id": "scenario-3",
+      "title": "Employee Uses AI Tool",
+      "icon": "🤖",
+      "narrative": "An employee wants to speed up a report and pastes a spreadsheet of confidential customer data into a public AI chatbot to summarise it.",
+      "categories": ["ai-governance", "data-privacy"],
+      "options": [
+        { "id": "a", "label": "No restrictions on AI tool usage", "score": 0, "feedback": "Without any AI policy, confidential data can easily leak into third-party AI training sets." },
+        { "id": "b", "label": "A clear AI usage policy exists and is enforced", "score": 100, "feedback": "Excellent — a documented, enforced AI policy is the foundation of responsible AI governance." },
+        { "id": "c", "label": "AI usage is restricted to approved, vetted tools", "score": 90, "feedback": "Restricting to vetted tools with data protections greatly reduces leakage risk." },
+        { "id": "d", "label": "Unsure if a policy exists", "score": 25, "feedback": "Uncertainty about AI policy usually means there isn't one — this is a governance gap to close." }
+      ]
+    },
+    {
+      "id": "scenario-4",
+      "title": "Website Outage",
+      "icon": "🌐",
+      "narrative": "Your e-commerce website goes down during your biggest sales weekend of the year. Customers can't check out and social media complaints are starting.",
+      "categories": ["business-continuity", "disaster-recovery"],
+      "options": [
+        { "id": "a", "label": "Restore quickly from a recent backup", "score": 100, "feedback": "Having tested, recent backups means downtime is minutes, not days." },
+        { "id": "b", "label": "Contact the hosting provider for support", "score": 60, "feedback": "A reasonable step, but slower without your own backup and recovery plan." },
+        { "id": "c", "label": "Pay the attacker demanding ransom", "score": 0, "feedback": "Paying ransom funds criminals and doesn't guarantee recovery — never the right first move." },
+        { "id": "d", "label": "No backup exists", "score": 5, "feedback": "Without backups, an outage can mean permanent data loss and extended downtime." }
+      ]
+    },
+    {
+      "id": "scenario-5",
+      "title": "CEO WhatsApp Scam",
+      "icon": "📱",
+      "narrative": "Your finance manager receives a WhatsApp message from a number claiming to be the CEO, urgently requesting a confidential fund transfer and asking to keep it discreet.",
+      "categories": ["social-engineering", "fraud-controls"],
+      "options": [
+        { "id": "a", "label": "Verify by calling the CEO directly", "score": 100, "feedback": "Direct voice verification through a known number defeats nearly all impersonation scams." },
+        { "id": "b", "label": "Transfer the funds as requested", "score": 0, "feedback": "This is the classic 'CEO fraud' scam pattern — never transfer funds based on an unverified message." },
+        { "id": "c", "label": "Ask finance colleagues for a second opinion", "score": 65, "feedback": "Good collaborative instinct, though direct verification with the CEO is stronger." },
+        { "id": "d", "label": "Escalate to management before acting", "score": 75, "feedback": "Escalating slows the scam down and is a solid process control." }
+      ]
+    }
+  ],
+  "badges": [
+    { "id": "cyber-defender", "label": "Cyber Defender", "icon": "🛡️", "category": "security-awareness" },
+    { "id": "ai-champion", "label": "AI Champion", "icon": "🤖", "category": "ai-governance" },
+    { "id": "data-guardian", "label": "Data Guardian", "icon": "🔒", "category": "data-protection" },
+    { "id": "security-hero", "label": "Security Hero", "icon": "🦸", "category": "fraud-prevention" },
+    { "id": "resilience-leader", "label": "Digital Resilience Leader", "icon": "🌟", "category": "business-continuity" }
+  ],
+  "riskLevels": [
+    { "min": 0, "max": 49, "label": "High Risk", "color": "#EF4444" },
+    { "min": 50, "max": 79, "label": "Medium Risk", "color": "#F97316" },
+    { "min": 80, "max": 100, "label": "Strong Security Posture", "color": "#10B981" }
+  ]
+}

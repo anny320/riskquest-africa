@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Secure360 Assessment — Wakara Technologies</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="min-h-screen">
+
+<nav class="px-6 py-5 max-w-7xl mx-auto flex items-center justify-between">
+  <a href="index.html" class="flex items-center gap-2">
+    <span class="text-2xl">🛡️</span>
+    <span class="font-bold text-lg">Wakara <span class="gradient-text">Secure360</span></span>
+  </a>
+  <div id="live-score" class="hidden items-center gap-3 font-semibold">
+    <span class="text-sm text-slate-500">Live Score</span>
+    <span id="live-score-value" class="text-2xl text-blue-600 score-pop">0</span>
+  </div>
+</nav>
+
+<main class="max-w-4xl mx-auto px-6 pb-20">
+
+  <section id="persona-section">
+    <h1 class="text-3xl font-bold text-center mb-2">Choose Your Industry</h1>
+    <p class="text-center text-slate-500 mb-10">We'll tailor your simulation scenarios accordingly.</p>
+    <div id="persona-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+  </section>
+
+  <section id="simulation-section" class="hidden fade-in">
+    <div class="mb-8">
+      <div class="flex justify-between text-sm text-slate-500 mb-2">
+        <span id="progress-label">Scenario 1 of 5</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-track"><div id="progress-fill" class="progress-fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="card p-8">
+      <div class="text-4xl mb-4" id="scenario-icon"></div>
+      <h2 class="text-2xl font-bold mb-3" id="scenario-title"></h2>
+      <p class="text-slate-600 mb-8" id="scenario-narrative"></p>
+      <div id="options-container" class="grid gap-4"></div>
+    </div>
+
+    <div id="feedback-box" class="hidden card p-6 mt-6 border-l-4">
+      <p id="feedback-text" class="mb-4"></p>
+      <button id="next-btn" class="btn-primary">Next Scenario →</button>
+    </div>
+  </section>
+
+  <section id="badge-toast-container"></section>
+</main>
+
+<script src="./scoring.js"></script>
+<script src="./scenarios.js"></script>
+<script src="./app.js"></script>
+<script>
+let data, scoreState, currentIndex = 0, selectedOption = null, persona = null;
+
+async function init() {
+  data = await ScenarioData.loadScenarioData();
+  scoreState = Scoring.createScoreState();
+  renderPersonas();
+}
+
+function renderPersonas() {
+  const grid = document.getElementById('persona-grid');
+  grid.innerHTML = data.personas.map(p => `
+    <div class="persona-card p-6 text-center" data-id="${p.id}">
+      <div class="text-3xl mb-2">${p.icon}</div>
+      <div class="font-semibold">${p.label}</div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.persona-card').forEach(card => {
+    card.addEventListener('click', () => {
+      persona = card.dataset.id;
+      startSimulation();
+    });
+  });
+}
+
+function startSimulation() {
+  document.getElementById('persona-section').classList.add('hidden');
+  document.getElementById('simulation-section').classList.remove('hidden');
+  document.getElementById('live-score').classList.remove('hidden');
+  document.getElementById('live-score').classList.add('flex');
+  renderScenario();
+}
+
+function renderScenario() {
+  selectedOption = null;
+  const scenario = data.scenarios[currentIndex];
+  document.getElementById('progress-label').textContent = `Scenario ${currentIndex + 1} of ${data.scenarios.length}`;
+  const pct = Math.round((currentIndex / data.scenarios.length) * 100);
+  document.getElementById('progress-pct').textContent = `${pct}%`;
+  document.getElementById('progress-fill').style.width = `${pct}%`;
+
+  document.getElementById('scenario-icon').textContent = scenario.icon;
+  document.getElementById('scenario-title').textContent = scenario.title;
+  document.getElementById('scenario-narrative').textContent = scenario.narrative;
+
+  const container = document.getElementById('options-container');
+  container.innerHTML = scenario.options.map(opt => `
+    <div class="option-card p-5" data-id="${opt.id}">
+      <p class="font-medium">${opt.label}</p>
+    </div>
+  `).join('');
+
+  document.getElementById('feedback-box').classList.add('hidden');
+
+  container.querySelectorAll('.option-card').forEach(card => {
+    card.addEventListener('click', () => selectOption(scenario, card));
+  });
+}
+
+function selectOption(scenario, card) {
+  document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  const optionId = card.dataset.id;
+  const option = scenario.options.find(o => o.id === optionId);
+  selectedOption = option;
+
+  Scoring.recordAnswer(scoreState, scenario, option);
+  updateLiveScore();
+
+  const feedbackBox = document.getElementById('feedback-box');
+  feedbackBox.classList.remove('hidden');
+  feedbackBox.style.borderColor = option.score >= 75 ? '#10B981' : option.score >= 40 ? '#F97316' : '#EF4444';
+  document.getElementById('feedback-text').textContent = option.feedback;
+
+  document.querySelectorAll('.option-card').forEach(c => c.style.pointerEvents = 'none');
+}
+
+function updateLiveScore() {
+  const overall = Math.round(scoreState.answers.reduce((a, b) => a + b.score, 0) / scoreState.answers.length);
+  const el = document.getElementById('live-score-value');
+  el.textContent = overall;
+  el.classList.remove('score-pop');
+  requestAnimationFrame(() => el.classList.add('score-pop'));
+}
+
+document.getElementById('next-btn').addEventListener('click', () => {
+  currentIndex++;
+  if (currentIndex >= data.scenarios.length) {
+    finishSimulation();
+  } else {
+    renderScenario();
+  }
+});
+
+function finishSimulation() {
+  const results = Scoring.computeResults(scoreState);
+  const badges = Scoring.earnedBadges(scoreState, data.badges);
+  App.saveSession({ persona, scoreState, results, badges });
+  window.location.href = 'report.html';
+}
+
+init();
+</script>
+</body>
+</html>
