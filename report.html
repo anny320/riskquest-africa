@@ -7,7 +7,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles.css?v=2" />
 </head>
 <body class="min-h-screen">
 
@@ -82,7 +82,8 @@
           <label class="text-sm font-medium block mb-1"># of Employees</label>
           <input type="text" id="lead-employees" class="w-full border rounded-lg px-3 py-2" />
         </div>
-        <div class="md:col-span-2">
+        <div class="md:col-span-2 grid grid-cols-2 gap-3">
+          <button type="button" id="preview-btn" class="btn-secondary w-full">Preview Report</button>
           <button type="submit" class="btn-primary w-full">Download My PDF Report</button>
         </div>
       </form>
@@ -132,11 +133,11 @@
   </section>
 </main>
 
-<script src="./scoring.js"></script>
-<script src="./app.js"></script>
-<script src="./charts.js"></script>
-<script src="./leadcapture.js"></script>
-<script src="./pdf.js"></script>
+<script src="scoring.js?v=2"></script>
+<script src="app.js?v=2"></script>
+<script src="charts.js?v=2"></script>
+<script src="leadcapture.js?v=2"></script>
+<script src="pdf.js?v=2"></script>
 <script>
 const session = App.loadSession();
 
@@ -170,9 +171,8 @@ if (!session) {
     `Hello Wakara Technologies, I completed the Secure360 assessment with an overall score of ${results.overall}/100 (${results.riskLevel.label}) and would like a consultation.`
   );
 
-  document.getElementById('lead-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const lead = {
+  function getLeadFromForm() {
+    return {
       name: document.getElementById('lead-name').value,
       company: document.getElementById('lead-company').value,
       email: document.getElementById('lead-email').value,
@@ -180,7 +180,9 @@ if (!session) {
       website: document.getElementById('lead-website').value,
       employees: document.getElementById('lead-employees').value
     };
+  }
 
+  function validateAndShowErrors(lead) {
     const errors = LeadCapture.validateLead(lead);
     ['name', 'company', 'email', 'phone'].forEach((field) => {
       const errEl = document.getElementById(`err-${field}`);
@@ -191,8 +193,19 @@ if (!session) {
         errEl.classList.add('hidden');
       }
     });
+    return Object.keys(errors).length === 0;
+  }
 
-    if (Object.keys(errors).length) return;
+  document.getElementById('preview-btn').addEventListener('click', () => {
+    const lead = getLeadFromForm();
+    if (!validateAndShowErrors(lead)) return;
+    PDFReport.previewPDFReport(lead, results, badges, 'radarChart');
+  });
+
+  document.getElementById('lead-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const lead = getLeadFromForm();
+    if (!validateAndShowErrors(lead)) return;
 
     LeadCapture.saveLead(lead);
     PDFReport.generatePDFReport(lead, results, badges, 'radarChart');

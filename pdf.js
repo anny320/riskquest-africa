@@ -70,7 +70,7 @@ function addSectionHeading(doc, title, x, y) {
   doc.setFont(undefined, 'normal');
 }
 
-function generatePDFReport(lead, results, badges, radarChartCanvasId) {
+function buildReportDoc(lead, results, badges, radarChartCanvasId) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: 'pt', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -290,7 +290,18 @@ function generatePDFReport(lead, results, badges, radarChartCanvasId) {
   doc.text('Email: wakaratech@gmail.com', margin, y);
 
   stampFooters(doc, margin, pageWidth, pageHeight);
+  return doc;
+}
+
+function generatePDFReport(lead, results, badges, radarChartCanvasId) {
+  const doc = buildReportDoc(lead, results, badges, radarChartCanvasId);
   doc.save(`Secure360-Report-${lead.company.replace(/\s+/g, '-')}.pdf`);
+}
+
+function previewPDFReport(lead, results, badges, radarChartCanvasId) {
+  const doc = buildReportDoc(lead, results, badges, radarChartCanvasId);
+  const blobUrl = doc.output('bloburl');
+  window.open(blobUrl, '_blank');
 }
 
 function hexToRgb(hex) {
@@ -346,4 +357,4 @@ function stampFooters(doc, margin, pageWidth, pageHeight) {
   }
 }
 
-window.PDFReport = { generatePDFReport };
+window.PDFReport = { generatePDFReport, previewPDFReport };
