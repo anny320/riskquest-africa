@@ -38,18 +38,18 @@
 </script>
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<main class="max-w-4xl mx-auto px-6 pb-20 notranslate" translate="no">
+<main class="max-w-4xl mx-auto px-6 pb-20">
 
   <section id="persona-section">
     <h1 class="text-3xl font-bold text-center mb-2">Choose Your Industry</h1>
     <p class="text-center text-slate-500 mb-10">We'll tailor your simulation scenarios accordingly.</p>
-    <div id="persona-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+    <div id="persona-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 notranslate" translate="no"></div>
   </section>
 
   <section id="simulation-section" class="hidden fade-in">
     <div class="mb-8">
       <div class="flex justify-between text-sm text-slate-500 mb-2">
-        <span id="progress-label">Scenario 1 of 5</span>
+        <span id="progress-label" class="notranslate" translate="no">Scenario 1 of 5</span>
         <span id="progress-pct">0%</span>
       </div>
       <div class="progress-track"><div id="progress-fill" class="progress-fill" style="width:0%"></div></div>
@@ -57,13 +57,13 @@
 
     <div class="card p-8">
       <div class="text-4xl mb-4" id="scenario-icon"></div>
-      <h2 class="text-2xl font-bold mb-3" id="scenario-title"></h2>
-      <p class="text-slate-600 mb-8" id="scenario-narrative"></p>
-      <div id="options-container" class="grid gap-4"></div>
+      <h2 class="text-2xl font-bold mb-3 notranslate" id="scenario-title" translate="no"></h2>
+      <p class="text-slate-600 mb-8 notranslate" id="scenario-narrative" translate="no"></p>
+      <div id="options-container" class="grid gap-4 notranslate" translate="no"></div>
     </div>
 
     <div id="feedback-box" class="hidden card p-6 mt-6 border-l-4">
-      <p id="feedback-text" class="mb-4"></p>
+      <p id="feedback-text" class="mb-4 notranslate" translate="no"></p>
       <button id="next-btn" class="btn-primary">Next Scenario →</button>
     </div>
   </section>
