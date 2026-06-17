@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Website Security Snapshot — Wakara Secure360</title>
+<meta name="description" content="A fast, affordable scan that checks your business website for the security gaps most commonly exploited by attackers targeting African SMEs." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="styles.css?v=2" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M32DJF8H6D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-M32DJF8H6D');
+</script>
+</head>
+<body class="min-h-screen">
+
+<nav class="px-6 py-5 max-w-7xl mx-auto flex items-center justify-between">
+  <a href="index.html" class="flex items-center gap-2">
+    <span class="text-2xl">🛡️</span>
+    <span class="font-bold text-lg">Wakara <span class="gradient-text">Secure360</span></span>
+  </a>
+  <a href="assessment.html" class="text-sm text-blue-600 font-semibold">Take Free Assessment</a>
+</nav>
+
+<header class="gradient-brand text-white">
+  <div class="max-w-4xl mx-auto px-6 py-16 text-center">
+    <p class="inline-block bg-white/15 rounded-full px-4 py-1 text-sm font-semibold mb-6">Paid Add-On · KES 1,000</p>
+    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">Website Security Snapshot</h1>
+    <p class="text-lg text-white/90 max-w-2xl mx-auto">Find out how exposed your business website really is — in minutes. We scan your live site and send you a branded PDF report of what attackers could find first.</p>
+  </div>
+</header>
+
+<main class="max-w-4xl mx-auto px-6 py-16">
+
+  <section class="grid md:grid-cols-2 gap-6 mb-12">
+    <div class="card p-6">
+      <h3 class="font-semibold mb-3">🔒 Transport &amp; Identity</h3>
+      <p class="text-sm text-slate-500">SSL/HTTPS configuration, certificate health, and domain expiry checks.</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="font-semibold mb-3">🛡️ Security Headers</h3>
+      <p class="text-sm text-slate-500">Missing headers (CSP, HSTS, X-Frame-Options) that enable phishing and clickjacking.</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="font-semibold mb-3">📁 Exposed Sensitive Files</h3>
+      <p class="text-sm text-slate-500">Leaked <code>.git</code>, <code>.env</code>, and backup files that expose source code or credentials.</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="font-semibold mb-3">🧩 Outdated Software</h3>
+      <p class="text-sm text-slate-500">CMS, plugin, and JavaScript library versions with known vulnerabilities.</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="font-semibold mb-3">✉️ Email Spoofing Risk</h3>
+      <p class="text-sm text-slate-500">SPF/DKIM/DMARC checks — the top vector behind fake invoice and CEO-fraud scams.</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="font-semibold mb-3">🌐 DNS &amp; Domain Health</h3>
+      <p class="text-sm text-slate-500">Domain expiry, DNS configuration, and single-point-of-failure risks.</p>
+    </div>
+  </section>
+
+  <section class="card p-8 mb-12">
+    <h2 class="text-xl font-bold mb-4">How It Works</h2>
+    <ol class="space-y-3 text-slate-600 list-decimal list-inside">
+      <li>Pay KES 1,000 via our secure checkout below.</li>
+      <li>Submit your website URL and M-Pesa confirmation message using the form on this page.</li>
+      <li>Receive your personalized Website Security Snapshot PDF report within 24 hours.</li>
+    </ol>
+    <a id="checkout-link" href="https://tinkerwithme.hustlesasa.shop/products/6a3280296a812c85b6d232d7" target="_blank" class="btn-primary inline-block mt-6">Pay KES 1,000 — Go to Checkout</a>
+  </section>
+
+  <section class="card p-8">
+    <h2 class="text-xl font-bold mb-2">Submit Your Scan Request</h2>
+    <p class="text-slate-500 mb-6">Already paid? Fill in your details below and paste your M-Pesa confirmation message.</p>
+    <form id="scan-form" class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="text-sm font-medium block mb-1">Full Name *</label>
+        <input type="text" id="scan-name" class="w-full border rounded-lg px-3 py-2" required />
+      </div>
+      <div>
+        <label class="text-sm font-medium block mb-1">Company Name *</label>
+        <input type="text" id="scan-company" class="w-full border rounded-lg px-3 py-2" required />
+      </div>
+      <div>
+        <label class="text-sm font-medium block mb-1">Email Address *</label>
+        <input type="email" id="scan-email" class="w-full border rounded-lg px-3 py-2" required />
+      </div>
+      <div>
+        <label class="text-sm font-medium block mb-1">Phone Number *</label>
+        <input type="tel" id="scan-phone" class="w-full border rounded-lg px-3 py-2" required />
+      </div>
+      <div class="md:col-span-2">
+        <label class="text-sm font-medium block mb-1">Website URL to Scan *</label>
+        <input type="url" id="scan-url" placeholder="https://example.com" class="w-full border rounded-lg px-3 py-2" required />
+      </div>
+      <div class="md:col-span-2">
+        <label class="text-sm font-medium block mb-1">M-Pesa Confirmation Message *</label>
+        <textarea id="scan-confirmation" rows="3" placeholder="Paste the full M-Pesa confirmation SMS here" class="w-full border rounded-lg px-3 py-2" required></textarea>
+      </div>
+      <div class="md:col-span-2">
+        <button type="submit" class="btn-primary w-full">Submit Scan Request</button>
+      </div>
+    </form>
+    <p id="scan-confirm-msg" class="hidden text-sm text-green-600 mt-4">Thanks! Your scan request has been sent — we'll email your report within 24 hours.</p>
+  </section>
+
+</main>
+
+<script src="app.js?v=2"></script>
+<script>
+document.getElementById('scan-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('scan-name').value;
+  const company = document.getElementById('scan-company').value;
+  const email = document.getElementById('scan-email').value;
+  const phone = document.getElementById('scan-phone').value;
+  const url = document.getElementById('scan-url').value;
+  const confirmation = document.getElementById('scan-confirmation').value;
+
+  const body = `Website Security Snapshot — Scan Request
+
+Name: ${name}
+Company: ${company}
+Email: ${email}
+Phone: ${phone}
+Website URL: ${url}
+
+M-Pesa Confirmation Message:
+${confirmation}`;
+
+  window.location.href = App.mailtoLink('Website Security Snapshot — Scan Request', body);
+  document.getElementById('scan-confirm-msg').classList.remove('hidden');
+});
+</script>
+</body>
+</html>
